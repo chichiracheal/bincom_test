@@ -14,7 +14,7 @@
                 </div>
             </div>
             <!-- Call to Action-->
-            <div class="card text-white bg-warning my-5 py-4 text-center">
+            <div class="card text-white bg-warning my-4 py-4 text-center">
                 <div class="card-body"><p class="text-white m-0">All results has been evaluated and well documented.</p></div>
             </div>
             <!-- Content Row-->

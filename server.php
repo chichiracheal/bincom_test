@@ -2,7 +2,11 @@
 require_once "classes/Admin.php";
 
 
-//echo $_POST['id'];
-$result = new Admin;
-        $chk=$result->fetch_result($_POST['id']);
+// var_dump($_POST);
+$id = array_key_first($_POST);
+ $result = new Admin;
+         $chk=$result->fetch_result($id);
+       
+       echo json_encode($chk);
+
 ?>

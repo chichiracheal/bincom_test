@@ -34,7 +34,7 @@ require_once "classes/Admin.php";
                     <div class="card h-100">
                         <div class="card-body">
                         <div class="col-md-7">
-                            <form action="" method="post">
+                            <form action=""  method="post">
                         <div class="input-group mb-3">
                         
          <label for="pname" class="px-4">LGA</label>
@@ -44,7 +44,7 @@ require_once "classes/Admin.php";
 
                     foreach($lgas as $lga){
                     $lganame = $lga["lga_name"];
-                    $lgaid = $lga["lga_id"];
+                    $lgaid = $lga["uniqueid"];
 
                     echo "<option value='$lgaid'>$lganame</option>";
 
@@ -67,24 +67,13 @@ require_once "classes/Admin.php";
                             <thead>
                                 <tr>
                                  
-                                    <th>TOTAL PU RESULT</th>
+                                    <th>S/N</th>
+                                    <th>Total Results</th>
                                     
 
                                 </tr>
             </thead>
-            <tbody>
-            
-                        <tr>
-                
-                <td> <div id="hello"></div></td>
-                
-                
-            </tr>
-
-                  
-                   
-                
-            
+            <tbody id="loop">
             </tbody>
             </table>
                         </div>
@@ -97,33 +86,52 @@ require_once "classes/Admin.php";
             </div>
         </div>
 
+
+
+
+
+
+        
+
+
+
+
         <script>
 			function showres(){
    let id = document.getElementById("lgaid").value;
-//    alert(id);
+     //alert(id);
 
-$.ajax({
-                    url: "server.php",
+ $.ajax({
+                     url: "server.php",
                     method: "post",
-                    data: 'id='+ id,
-                    dataType: "text",
-                    success: function(res){
-                      
+                    data:  id,
+                    dataType: "json",
+                     success: function(res){
+                   var num = 1;
 
-                    //    if(res.success==true){
-                    //     $("#hello").addClass("alert");
-                    //     $("#hello").removeClass("alert-danger");
-                    //     $("#hello").addClass("alert-success");
-                    //     $("#hello").html(res.party_score);
-                       alert(res);
-                    //    }else{
-                    //     $("#hello").addClass("alert");
-                    //     $("#hello").removeClass("alert-success");
-                    //     $("#hello").addClass("alert-danger");
-                    //     $("#hello").html(res.party_score);
+                        if(res!=""){
+                        
+                         $("#loop").empty();
+                         res.forEach((e, k) => {
+                           $("#loop").append( `<tr>
+                                <td>${k}</td>
+                                 <td>${e['SUM(party_score)']}</td>
+                            
+                            </tr>`)
+                         });
+                       // console.log(res)
+                        //  $("#hello").html(res.party_score);
+                    
+                        }else{
+                         $("#hello").addClass("alert");
+                         $("#hello").removeClass("alert-success");
+                         $("#hello").addClass("alert-danger");
+                         $("#hello").html("NO results found");
+                         $("#loop").empty()
+                       //  console.log(res)
 
-                    //    }
-                    }
+                        }
+                     }
                 })
 }
 		</script>

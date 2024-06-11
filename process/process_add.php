@@ -8,6 +8,9 @@ require_once "../classes/utilities.php";
 
     if(isset($_POST['btnupdate'])){
             $fname = sanitizer($_POST['fname']);
+            $pname = sanitizer($_POST['pollname']);
+            $lga = $_POST['lga'];
+            $ward = $_POST['wname'];
             $pid =sanitizer($_POST['pid']);
             $score = sanitizer($_POST['score']);
             $address = sanitizer($_POST['address']);
@@ -15,18 +18,18 @@ require_once "../classes/utilities.php";
             $party = $_POST['pname'];
        
             //validation
-        if(!$party){
-            $_SESSION['errormsg'] = "Please select a party";
+        if(!$party || !$ward || !$lga){
+            $_SESSION['errormsg'] = "Please make a selection";
             header("location:../create.php");
         }
    
-    if($fname == "" || $pid == "" ||$score == "" ||$address == "" ||$date == "" ){
+    if($fname == "" || $pid == "" ||$score == "" ||$address == "" ||$date == ""){
         $_SESSION['errormsg'] = '<div class="alert alert-danger" Please fill all fields</div>';
         header("location:../create.php");
         exit();
     }else{
         $result = new Admin;
-        $chk=$result->add_newresult($fname,$pid,$score,$address,$date,$party);
+        $chk=$result->add_newresult($fname,$pname,$lga,$ward,$pid,$score,$address,$date,$party);
 
         if($chk){
             header("location:../index.php");

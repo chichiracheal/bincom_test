@@ -5,7 +5,8 @@ require_once "classes/Admin.php";
 
  $party = new Admin;
   $partys = $party->fetch_party();
-
+  $wards = $party->fetch_ward();
+  $lgas = $party->fetch_lga();
 ?>
        
         <div class="container px-4 px-lg-5">
@@ -15,12 +16,12 @@ require_once "classes/Admin.php";
                 <div class="col-lg-5">
                     <h1 class="font-weight-light">2011 ELECTIONS</h1>
                     <p>This is a portal where results for the 2011 elections from different polling units, wards, and LGA's in Delta State.</p>
-                    <a class="btn btn-success" href="#!">Get Started</a>
+                    <a class="btn btn-success" href="#create">Get Started</a>
                 </div>
             </div>
 
             <!-- form -->
-            <div class="container col-md-6 px-4 py-5" >
+            <div class="container col-md-12 px-4 py-5" >
  
  
  <!-- content begins -->   
@@ -34,7 +35,7 @@ if(isset($_SESSION['errormsg'])){
 
 ?>
 
-            <form action="process/process_add.php" method="post">   
+            <form action="process/process_add.php" method="post" id="create">   
 <div class="form-group row mb-3">
   <div class="col-md-6">
     <div class="form-floating">
@@ -44,12 +45,51 @@ if(isset($_SESSION['errormsg'])){
    </div>
    <div class="col-md-6">
     <div class="form-floating">
-      <input type="number" name="pid" class="form-control" id="pid" placeholder=" Polling unit Uniqueid">
-      <label for="pid">Polling_unit_uniqueid</label>
+      <input type="text" name="pollname" class="form-control" id="pollname" placeholder="Enter Polling unit name">
+      <label for="pollname">Enter Polling unit name</label>
     </div>
    </div>
-</div>
-<div class="col-md-6 mb-3">
+   <div class="form-floating mb-3">
+      <input type="number" name="pid" class="form-control" id="pid" placeholder="Enter score">
+      <label for="score">polling_unit_id</label>
+    </div>
+   <div class="col-md-12 mb-3">
+        <label for="lga">LGA</label>
+        <select name="lga" id="lga" class="form-control border-success noround">
+          <option value="">Select One</option>
+           <?php
+
+foreach($lgas as $lga){
+  $lganame = $lga["lga_name"];
+  $lgaid = $w["lga_id"];
+
+  echo "<option value='$lgaid'>$lganame</option>";
+
+}
+
+?>
+           </select>
+    
+    </div>
+<div class="col-md-12 mb-3">
+        <label for="wname">Ward</label>
+        <select name="wname" id="wname" class="form-control border-success noround">
+          <option value="">Select One</option>
+           <?php
+
+foreach($wards as $w){
+  $wardname = $w["ward_name"];
+  $wardid = $w["ward_id"];
+
+  echo "<option value='$wardid'>$wardname</option>";
+
+}
+
+?>
+           </select>
+    
+    </div>
+<div class="col-md-12 mb-3">
         <label for="pname">Party Name</label>
         <select name="pname" id="pname" class="form-control border-success noround">
           <option value="">Select One</option>
@@ -89,7 +129,7 @@ foreach($partys as $p){
     
   </form>
 
-</div>
+
        <?php
     require_once "partials/footer.php";
 

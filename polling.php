@@ -14,7 +14,7 @@
                 <div class="col-lg-5">
                     <h1 class="font-weight-light">2011 ELECTIONS</h1>
                     <p>This is a portal where results for the 2011 elections from different polling units, wards, and LGA's in Delta State.</p>
-                    <a class="btn btn-success" href="#!">Get Started</a>
+                    <a class="btn btn-success" href="#form">Get Started</a>
                 </div>
             </div>
             <!-- Call to Action-->
@@ -31,7 +31,7 @@
                         
                         <div class="card-body">
                         <div class="col-md-7">
-                            <form action="" method="get">
+                            <form action="" method="get" id="form">
                         <div class="input-group mb-3">
                         <input type="text" class="form-control" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" placeholder="Search polling unit" >
                         <div class="input-group-append">
@@ -46,8 +46,8 @@
                 <div class="col-md-12 mb-5">
                     <div class="card mt-4">
                    
-                        <div class="card-body px-5">
-                           <table class="table table-bordered">
+                        <div class="card-body px-3">
+                           <table class="table table-sm table-bordered">
                             <thead>
                                 <tr>
                                     <th>ID</th>
